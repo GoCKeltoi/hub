@@ -1,0 +1,173 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+    id 'findbugs'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (it.requested.name == 'commons-logging') {
+            it.useTarget 'org.slf4j:jcl-over-slf4j:1.7.7'
+        }
+    }
+}
+
+project.configurations.create 'dagger_apt'
+
+dependencies {
+    dagger_apt "com.google.dagger:dagger-compiler:2.4"
+
+    compile 'com.google.dagger:dagger:2.4'
+    compile 'com.google.guava:guava:19.0'
+
+    // quality
+    compile 'com.google.code.findbugs:jsr305:3.0.0'
+    compile 'com.google.code.findbugs:annotations:3.0.0'
+
+    // swagger
+    runtime 'com.wordnik:swagger-servlet_2.10:1.3.12'
+    compile 'com.wordnik:swagger-annotations:1.3.12'
+
+    compile 'org.apache.tomcat.embed:tomcat-embed-core:8.5.2'
+    compile 'org.apache.tomcat.embed:tomcat-embed-logging-log4j:8.5.2'
+
+    compile 'de.mobile:mobile-log4j-logstash-appender:1.1'
+    compile 'io.dropwizard.metrics:metrics-core:3.1.2'
+    compile 'io.dropwizard.metrics:metrics-jvm:3.1.2'
+    compile 'io.dropwizard.metrics:metrics-servlets:3.1.2'
+    compile 'io.dropwizard.metrics:metrics-graphite:3.1.2'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'org.apache.kafka:kafka-clients:0.10.0.0'
+    compile 'org.elasticsearch:elasticsearch:1.7.5'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+
+    compile 'org.mongodb:mongo-java-driver:2.12.3'
+    compile 'org.mongodb.morphia:morphia:0.108'
+
+    compile 'com.datastax.cassandra:cassandra-driver-core:2.1.3'
+    compile 'com.datastax.cassandra:cassandra-driver-mapping:2.1.2'
+
+    // logging
+    compile 'org.slf4j:jul-to-slf4j:1.7.12'
+    runtime 'org.slf4j:slf4j-log4j12:1.7.12'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    runtime 'de.mobile:mobile-log4j-logstash-appender:1.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.4.1'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+distZip.enabled = false
+distTar.enabled = false
+
+// integrate dagger 2.0 code generation, gradle lifecycle and intellij
+def generated_main_classes_target='src/main/generated'
+def generated_test_classes_target='src/test/generated'
+
+idea {
+    module {
+        sourceDirs += file(generated_main_classes_target)
+        testSourceDirs += file(generated_test_classes_target)
+        generatedSourceDirs += file(generated_main_classes_target)
+        generatedSourceDirs += file(generated_test_classes_target)
+    }
+}
+
+// provided scope for intellij
+
+
+def processDaggerAnnotations(String taskName, String outputDir, compileTask) {
+    project.task(taskName) << { ->
+        File aptOutputDir = project.file outputDir
+
+        compileTask.options.compilerArgs.addAll '-processorpath',
+                project.configurations.dagger_apt.asPath, '-s', aptOutputDir.path
+
+        compileTask.source = compileTask.source.filter {
+            !it.path.startsWith(aptOutputDir.path)
+        }
+
+        compileTask.doFirst {
+            logger.info "Generating Dagger sources:"
+            logger.info "  Output directory: ${aptOutputDir}"
+
+            aptOutputDir.mkdirs()
+        }
+    }
+    compileTask.dependsOn taskName
+
+    def cleanTaskName = "clean_" + taskName
+    project.task(cleanTaskName) << { -> delete outputDir }
+    project.tasks.getByName('clean').dependsOn cleanTaskName
+}
+
+processDaggerAnnotations("daggerClassesForSrcMain", generated_main_classes_target, project.compileJava)
+processDaggerAnnotations("daggerClassesForSrcTest", generated_test_classes_target, project.compileTestJava)
+
+
+findbugs {
+    toolVersion = '3.0.1'
+    sourceSets = [sourceSets.main]
+}
+
+project.findbugs.omitVisitors = ['SerializableIdiom']
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
+
+mainClassName = 'hub.Main'
+
+shadowJar {
+    baseName = 'hub'
+    classifier = ''
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
+
+task publish() {
+    dependsOn build
+    dependsOn shadowJar
+}
+
+jar {
+    exclude('dev.properties')
+    exclude('log4j-dev.properties')
+}
+
+// local development mode
+task(dev, type: JavaExec) {
+    main 'hub.MainDevMode'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+defaultTasks 'shadowJar'

@@ -1,0 +1,84 @@
+{
+  "vehicleId": "1",
+  "eventType": "Insert",
+  "timestamp": "2016-06-05T20:35:46.564Z",
+  "vehicle": {
+    "id": "1",
+    "eventType": "Insert",
+    "adId": "1",
+    "customerId": 10,
+    "siteId": "GERMANY",
+    "internalNumber": "HKCR2727/155 ALU ",
+    "condition": "NEW",
+    "creationDate": "2004-10-11T15:32:02Z",
+    "modificationDate": "2016-03-07T12:19:38Z",
+    "modelDescription": "HKCR 2727/155 ALU ",
+    "vehicleCategory": "Trailer",
+    "category": "OtherTrailer",
+    "make": {
+      "id": 25875,
+      "name": "WM MEYER"
+    },
+    "price": {
+      "currency": "EUR",
+      "consumerValue": {
+        "gross": "2990.00",
+        "net": "2512.61"
+      },
+      "vatRate": "19.00",
+      "type": "FIXED"
+    },
+    "description": "**SONDERAKTIONSMODELL  \\\\**----Tandem-Rückwärtskipper, Schuhknecht-Sondermodell, Hochlader Alu, mit Metallboden!!! Räder unter der Ladefläche. Alu-Bordwände alle Seiten abklappbar und abnehmbar, Heckwand pendelbar, Achsen wartungsfrei, Auflaufbremse, Rückfahrautomatik, Feststellbremse, V-Deichsel, Kugelkupplung, E-Anlage 12 Volt 7-polig, Kipphydraulik mit Handpumpe, lichte Ladeflächenmaße: L 2690 mm x B 1550 mm x Bordwandhöhe 330 mm, TÜV-Abnahme, Fahrzeugbrief, Bedienungsanleitung, Lieferzeiten bis zu 14 Werktagen möglich.\\\\ \\\\**Günstige Finanzierungen auch ohne Anzahlung bei uns gerne !!! **",
+    "uploadSticky": false,
+    "attributes": {
+      "loadingSpace": {
+        "value1": "2690",
+        "value2": "1550",
+        "value3": "330"
+      },
+      "damageUnrepaired": {
+        "value": "false"
+      },
+      "deliveryPeriod": {
+        "value": "14"
+      },
+      "loadCapacity": {
+        "value": "2070"
+      },
+      "axles": {
+        "value": "2"
+      },
+      "licensedWeight": {
+        "value": "2700"
+      }
+    },
+    "financing": {},
+    "fuelEmission": {},
+    "images": [
+      {
+        "url": "i.ebayimg.com/00/s/MjM4WDI5OA==/z/QLUAAOSwPcJVR1Yy/$",
+        "hash": "a2fd400b4da0bfdbea14c1848fac4ae2"
+      },
+      {
+        "url": "i.ebayimg.com/00/s/MjI0WDI5OA==/z/puoAAOSweW5VR1Yx/$",
+        "hash": "2e16a0048f2abc35495f3f81aa4187b3"
+      },
+      {
+        "url": "i.ebayimg.com/00/$T2eC16JHJG8E9nyfmIsTBQpglQ52hg~~",
+        "hash": "413ffc92dbdcd89f1b640cb398fe7afd"
+      },
+      {
+        "url": "i.ebayimg.com/00/$(KGrHqJHJE0FB5Z6yOR8BQpgm76Uww~~",
+        "hash": "fa286c69c1cbd912da809f3536bdcbc5"
+      },
+      {
+        "url": "i.ebayimg.com/00/$T2eC16R,!zUE9s38+F+OBQpg11i)og~~",
+        "hash": "ef4c73c238639f7af39b6a9be448e7dd"
+      },
+      {
+        "url": "i.ebayimg.com/00/$T2eC16dHJHYE9nzpfILMBQpg23zokQ~~",
+        "hash": "3c22e4be9e8a53aa58ac9a84353c5974"
+      }
+    ]
+  }
+}

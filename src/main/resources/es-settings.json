@@ -1,0 +1,26 @@
+{
+  "refresh_interval": "1s",
+  "analysis": {
+    "analyzer": {
+      "freetext": {
+        "tokenizer": "whitespace",
+        "filter": ["strip_nl_cr", "lowercase", "freetext_word", "freetext_german"]
+      }
+    },
+    "filter": {
+      "freetext_german": {
+        "type": "snowball",
+        "name": "German2"
+      },
+      "freetext_word": {
+        "type": "word_delimiter",
+        "catenate_words": "true"
+      },
+      "strip_nl_cr": {
+        "type": "pattern_replace",
+        "pattern": "\\\\r|\\\\n",
+        "replacement": " "
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{"_source": {
+
+  "excludes": [
+    "modelDescriptionSearch"
+  ]
+
+},
+  "properties": {
+    "vehicleId": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "customerId": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "internalNumber": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "condition": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "creationDate": {
+      "type": "date",
+      "format": "date_time_no_millis"
+    },
+    "renewalDate": {
+      "type": "date",
+      "format": "date_time"
+    },
+    "modelDescriptionSearch": {
+      "type": "string"
+    },
+    "modelDescription": {
+      "type": "string",
+      "analyzer": "freetext",
+       "fields": {
+          "raw": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+       }
+    },
+    "category": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "vehicleCategory": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "vehicleCategorySort": {
+      "type": "integer"
+    },
+    "makeId": {
+      "type": "integer"
+    },
+    "makeName": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "modelId": {
+      "type": "integer"
+    },
+    "modelName": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "consumerPriceNet": {
+      "type": "double"
+    },
+    "consumerPriceGross": {
+      "type": "double"
+    },
+    "dealerPriceNet": {
+      "type": "double"
+    },
+    "dealerPriceGross": {
+      "type": "double"
+    },
+    "vatRate": {
+      "type": "double"
+    },
+    "currency": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "firstRegistration": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "mileage": {
+      "type": "integer"
+    },
+    "power": {
+      "type": "integer"
+    },
+    "gearbox": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "fuel": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "usageType": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "reserved": {
+      "type": "boolean"
+    },
+    "uploadSticky": {
+      "type": "boolean"
+    },
+    "qualityStatus": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "images": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "metallic": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "exteriorColor": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "manufactuererColorName": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "constructionYear": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "axles": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "operatingHours": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "emissionSticker": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "numSeats": {
+      "type": "string",
+      "index": "not_analyzed"
+    }
+ }
+}

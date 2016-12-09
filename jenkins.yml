@@ -1,0 +1,20 @@
+template_name: multi-branch
+
+enable_dockerized_builds: true
+enable_docker_deployment: true
+
+gradle_executable: "./gradlew -Dhttp.proxyHost=proxy.mobile.rz -Dhttp.proxyPort=3128 -Dhttps.proxyHost=proxy.mobile.rz -Dhttps.proxyPort=3128"
+gradle_default_task: publish
+
+enable_pull_request_builder: true
+show_forks: true
+
+upload_into_autodeploy: true
+upload_into_autodeploy_artifact_names:
+  - 'hub.jar'
+docker_artifact_names:
+  - 'hub.jar'
+  
+label: docker-java8
+
+
