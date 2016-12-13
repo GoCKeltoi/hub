@@ -3,6 +3,7 @@ package hub.indexer;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
+import com.google.gson.reflect.TypeToken;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,32 +16,27 @@ import rx.Observable;
 import hub.elasticsearch.DocumentIndexer;
 import hub.kafka.EventConsumer;
 
+import java.lang.reflect.Type;
+import java.util.Map;
+
 
 class VehicleEventConsumer implements EventConsumer<ConsumerRecord<String, String>> {
 
-    private static final Status DEFAULT_STATUS = new Status();
-    private static final Observable<Status> STATUS_ON_ERROR = Observable.just(DEFAULT_STATUS);
-    private static final Observable<VehicleImages> IMAGES_ON_ERROR = Observable.just(VehicleImages.EMPTY);
 
     private final Logger logger = LoggerFactory.getLogger(VehicleEventConsumer.class);
 
-    private final DocumentIndexer<VehicleESDoc> documentIndexer;
-    private final OrderApi orderApi;
-    private final InventoryApi inventoryApi;
+    private final DocumentIndexer<Map<String, Object>> documentIndexer;
+
     private final Gson gson;
 
     private final MetricRegistry mr;
 
     VehicleEventConsumer(
-            DocumentIndexer<VehicleESDoc> documentIndexer,
-            OrderApi orderApi,
-            InventoryApi inventoryApi,
+            DocumentIndexer<Map<String, Object>> documentIndexer,
             Gson gson,
             MetricRegistry mr
     ) {
         this.documentIndexer = documentIndexer;
-        this.orderApi = orderApi;
-        this.inventoryApi = inventoryApi;
         this.gson = gson;
         this.mr = mr;
     }
@@ -54,10 +50,8 @@ class VehicleEventConsumer implements EventConsumer<ConsumerRecord<String, Strin
                 documentIndexer.deleteDocument(index, record.key());
             } else {
 
-                final Vehicle vehicle = gson.fromJson(record.value(), Vehicle.class);
-
-                VehicleESDoc doc = buildESDocument(vehicle);
-                documentIndexer.indexDocument(index, doc.getVehicleId(), doc);
+                Type type = new TypeToken<Map<String, Object>>(){}.getType();
+                documentIndexer.indexDocument(index, record.key(), gson.fromJson(record.value(), type));
             }
 
         } catch (Exception e) {

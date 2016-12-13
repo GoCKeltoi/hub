@@ -8,14 +8,13 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import hub.config.Config;
 import hub.elasticsearch.EsAliasResolver;
-import hub.indexer.vehicle.Vehicle;
 import hub.kafka.TopicConnection;
 import hub.kafka.TopicConnectionFactory;
-import de.mobile.util.DateUtils;
-import de.mobile.util.Pair;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hub.util.Pair;
 import org.apache.kafka.clients.consumer.CommitFailedException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -36,6 +35,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -45,6 +45,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.io.Resources.getResource;
@@ -60,15 +61,10 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
     private static final Gson gson = new Gson();
 
     private final String esEndpoint;
-    private final int batchSize;
     private final DateTimeFormatter timeFormatter;
-    private final ObjectReader vehicleReader;
     private final EsAliasResolver aliasResolver;
     private final TopicConnectionFactory tcf;
     private final Client client;
-    private final VehicleEventConsumer vec;
-    private final Duration catchupDuration;
-    private URL inventoryUrl;
 
     private final MetricRegistry mr;
 
@@ -76,28 +72,13 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
         EsAliasResolver aliasResolver,
         Client client,
         TopicConnectionFactory tcf,
-        VehicleEventConsumer vec,
         MetricRegistry mr
     ) {
-        try {
-            this.inventoryUrl = new URL(Config.mustExist("inventoryServiceEndpoint") + "vehicles");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-        this.vec = vec;
         this.esEndpoint = Config.mustExist("inventoryEsSearchEndpoint");
         this.client = client;
         this.tcf = tcf;
-        this.batchSize = Config.get("fullIndexBatchSize", 50_000);
-        this.catchupDuration = Duration.ofSeconds(Config.get("fullIndexCatchupDurationSec", 60 * 5));
         this.aliasResolver = aliasResolver;
         this.timeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-
-        ObjectReader defaultReader = new ObjectMapper()
-            .reader()
-            .withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.vehicleReader = defaultReader.withType(Vehicle.class);
 
         this.mr = mr;
     }
@@ -183,11 +164,16 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
                     if(record.timestamp()>newestTimestamp){
                         newestTimestamp = record.timestamp();
                     }
-                    try {
-                        final Vehicle vehicle = gson.fromJson(record.value(), Vehicle.class);
-                        streamVehicleToEs(w, vehicle);
-                    } catch (Exception e){
-                        logger.error("record.value() " + record.value());
+                    if (isDeleteEvent(record)) {
+                        streamVehicleDeleteToEs(w, record.key());
+                    } else {
+                        try {
+                            Type type = new TypeToken<Map<String, Object>>() {}.getType();
+
+                            streamVehicleToEs(w, record.key(), gson.fromJson(record.value(), type));
+                        } catch (Exception e){
+                            logger.error("record.value() " + record.value());
+                        }
                     }
                 }
             }
@@ -209,8 +195,7 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
     }
 
     private void fullIndexInto(String indexName) {
-        Date fullIndexStartDate = DateUtils.now();
-        long fullIndexTargetTimestamp = DateUtils.plusMinutes(fullIndexStartDate, -2).getTime();
+        Date fullIndexStartDate = new Date();
         logger.info("Performing full index into: {}", indexName);
         Duration pollTimeout = Duration.ofSeconds(Config.get("pollTimeout", 60));
 
@@ -221,11 +206,7 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
             boolean execute = true;
             while (execute) {
                 Pair<Integer, Long> result = prosessJunk(client, pollTimeout, indexName);
-                execute = result.getSecond() < fullIndexTargetTimestamp;
-                if(result.getSecond() > 0){
-                    logger.info("result.getSecond() " +  result.getSecond());
-                    logger.info("diff " + (fullIndexTargetTimestamp - result.getSecond()));
-                }
+                execute = result.getSecond() < fullIndexStartDate.getTime();
 
                 total += result.getFirst();
                 if (sw.elapsed(TimeUnit.SECONDS) > 0) {
@@ -247,17 +228,23 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
     }
 
 
-    private void streamVehicleToEs(Writer writer, Vehicle v) throws IOException {
-
-        final VehicleESDoc vehicleEs = VehicleEsDocAssembler.buildESDocument(v);
+    private void streamVehicleToEs(Writer writer, String key, Map<String, Object> map) throws IOException {
 
         writer
-            .append("{ \"index\" : { \"_id\" : \"")
-            .append(vehicleEs.getVehicleId())
-            .append("\" } }\n");
+                .append("{ \"index\" : { \"_id\" : \"")
+                .append(key)
+                .append("\" } }\n");
 
-        gson.toJson(vehicleEs, writer);
+        gson.toJson(map, writer);
         writer.write("\n");
+    }
+
+    private void streamVehicleDeleteToEs(Writer writer, String key) throws IOException {
+
+        writer
+                .append("{ \"delete\" : { \"_id\" : \"")
+                .append(key)
+                .append("\" } }\n");
     }
 
     private void renameAlias(String indexName) {

@@ -11,13 +11,13 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 
-import hub.client.InventoryApi;
-import hub.client.OrderApi;
 import hub.elasticsearch.DocumentIndexer;
 import hub.elasticsearch.DocumentIndexerImpl;
 import hub.elasticsearch.EsAliasResolver;
 import hub.kafka.TopicConnectionFactory;
 import hub.util.MonitoringProxy;
+
+import java.util.Map;
 
 
 @Module
@@ -26,19 +26,17 @@ public class IndexerModule {
     @Provides
     @Singleton
     VehicleEventConsumer provideVehicleEventConsumer(
-            @Named("vehicleIndexer") DocumentIndexer<VehicleESDoc> docIndexer,
-            OrderApi orderApi,
-            InventoryApi inventoryApi,
+            @Named("vehicleIndexer") DocumentIndexer<Map<String, Object>> docIndexer,
             Gson gson,
             MetricRegistry mr
     ) {
-        return new VehicleEventConsumer(docIndexer, orderApi, inventoryApi, gson, mr);
+        return new VehicleEventConsumer(docIndexer, gson, mr);
     }
 
     @Provides
     @Singleton
     @Named("vehicleIndexer")
-    DocumentIndexer<VehicleESDoc> provideVehicleEsIndexer(
+    DocumentIndexer<Map<String, Object>> provideVehicleEsIndexer(
             Client esclient,
             Gson gson,
             MetricRegistry mr
@@ -60,7 +58,7 @@ public class IndexerModule {
             VehicleEventConsumer vec,
             MetricRegistry mr
     ) {
-        return new FullIndexBuilderImpl(aliasResolver, client, tcf, vec, mr);
+        return new FullIndexBuilderImpl(aliasResolver, client, tcf, mr);
     }
 
     @Provides
