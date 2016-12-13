@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.kafka;
+package hub.kafka;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.MetricRegistry;
 
-import de.mobile.inventorylistindexer.config.Config;
+import hub.config.Config;
 
 public class KafkaTopicReader<ConsumerRecord> {
 

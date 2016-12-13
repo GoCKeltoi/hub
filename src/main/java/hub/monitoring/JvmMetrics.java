@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.monitoring;
+package hub.monitoring;
 
 import java.lang.management.ManagementFactory;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.elasticsearch;
+package hub.elasticsearch;
 
 import org.elasticsearch.client.Client;
 import org.slf4j.Logger;

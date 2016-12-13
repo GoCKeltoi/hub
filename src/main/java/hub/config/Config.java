@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.config;
+package hub.config;
 
 import java.util.Optional;
 

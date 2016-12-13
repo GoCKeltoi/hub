@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer;
+package hub;
 
 import java.io.IOException;
 import java.util.Properties;

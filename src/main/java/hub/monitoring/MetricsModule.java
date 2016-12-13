@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.monitoring;
+package hub.monitoring;
 
 import javax.inject.Singleton;
 
@@ -8,7 +8,7 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.Route;
+import hub.Route;
 
 @Module
 @Singleton

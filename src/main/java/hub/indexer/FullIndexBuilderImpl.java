@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -8,11 +8,11 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
-import de.mobile.inventorylistindexer.config.Config;
-import de.mobile.inventorylistindexer.elasticsearch.EsAliasResolver;
-import de.mobile.inventorylistindexer.indexer.vehicle.Vehicle;
-import de.mobile.inventorylistindexer.kafka.TopicConnection;
-import de.mobile.inventorylistindexer.kafka.TopicConnectionFactory;
+import hub.config.Config;
+import hub.elasticsearch.EsAliasResolver;
+import hub.indexer.vehicle.Vehicle;
+import hub.kafka.TopicConnection;
+import hub.kafka.TopicConnectionFactory;
 import de.mobile.util.DateUtils;
 import de.mobile.util.Pair;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -48,7 +48,7 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.io.Resources.getResource;
-import static de.mobile.inventorylistindexer.elasticsearch.EsAliasResolver.ES_INDEX_NAME;
+import static hub.elasticsearch.EsAliasResolver.ES_INDEX_NAME;
 
 @SuppressWarnings("PMD") // manufacturerColorName to long but i would like to have a consistent naming
 @SuppressFBWarnings

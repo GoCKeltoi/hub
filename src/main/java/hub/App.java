@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer;
+package hub;
 
 public interface App {
 

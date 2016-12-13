@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.server;
+package hub.server;
 
 import java.io.File;
 import java.util.Set;
@@ -15,9 +15,9 @@ import com.google.common.io.Files;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.App;
-import de.mobile.inventorylistindexer.Route;
-import de.mobile.inventorylistindexer.config.Config;
+import hub.App;
+import hub.Route;
+import hub.config.Config;
 
 
 @Module

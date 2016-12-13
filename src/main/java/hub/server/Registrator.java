@@ -1,4 +1,4 @@
-package de.mobile.inventorylistservice.server;
+package hub.server;
 
 @FunctionalInterface
 public interface Registrator {

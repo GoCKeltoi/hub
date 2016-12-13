@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util.http;
+package hub.util.http;
 
 import java.io.IOException;
 

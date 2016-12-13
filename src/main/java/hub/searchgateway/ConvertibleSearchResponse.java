@@ -1,11 +1,9 @@
-package de.mobile.inventorylistservice.searchgateway;
+package hub.searchgateway;
 
 import com.google.gson.Gson;
-import de.mobile.inventorylistservice.elasticsearch.VehicleESDoc;
 import org.elasticsearch.search.SearchHit;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ConvertibleSearchResponse {

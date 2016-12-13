@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -11,13 +11,13 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.client.InventoryApi;
-import de.mobile.inventorylistindexer.client.OrderApi;
-import de.mobile.inventorylistindexer.elasticsearch.DocumentIndexer;
-import de.mobile.inventorylistindexer.elasticsearch.DocumentIndexerImpl;
-import de.mobile.inventorylistindexer.elasticsearch.EsAliasResolver;
-import de.mobile.inventorylistindexer.kafka.TopicConnectionFactory;
-import de.mobile.inventorylistindexer.util.MonitoringProxy;
+import hub.client.InventoryApi;
+import hub.client.OrderApi;
+import hub.elasticsearch.DocumentIndexer;
+import hub.elasticsearch.DocumentIndexerImpl;
+import hub.elasticsearch.EsAliasResolver;
+import hub.kafka.TopicConnectionFactory;
+import hub.util.MonitoringProxy;
 
 
 @Module

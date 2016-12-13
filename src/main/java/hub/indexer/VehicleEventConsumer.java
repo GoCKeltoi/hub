@@ -1,9 +1,7 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 
 import static com.codahale.metrics.MetricRegistry.name;
-
-import static de.mobile.inventorylistindexer.indexer.VehicleEsDocAssembler.buildESDocument;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -14,13 +12,8 @@ import com.google.gson.Gson;
 
 import rx.Observable;
 
-import de.mobile.inventorylistindexer.client.InventoryApi;
-import de.mobile.inventorylistindexer.client.OrderApi;
-import de.mobile.inventorylistindexer.elasticsearch.DocumentIndexer;
-import de.mobile.inventorylistindexer.indexer.images.VehicleImages;
-import de.mobile.inventorylistindexer.indexer.status.Status;
-import de.mobile.inventorylistindexer.indexer.vehicle.Vehicle;
-import de.mobile.inventorylistindexer.kafka.EventConsumer;
+import hub.elasticsearch.DocumentIndexer;
+import hub.kafka.EventConsumer;
 
 
 class VehicleEventConsumer implements EventConsumer<ConsumerRecord<String, String>> {

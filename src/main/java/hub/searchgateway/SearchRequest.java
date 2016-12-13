@@ -1,4 +1,4 @@
-package de.mobile.inventorylistservice.searchgateway;
+package hub.searchgateway;
 
 import java.util.Arrays;
 import java.util.List;

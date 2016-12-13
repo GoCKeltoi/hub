@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.kafka;
+package hub.kafka;
 
 import java.util.function.BiConsumer;
 

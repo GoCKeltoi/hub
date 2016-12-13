@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.server;
+package hub.server;
 
 import static com.google.common.base.Throwables.propagate;
 

@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.elasticsearch;
+package hub.elasticsearch;
 
 import java.util.Optional;
 import java.util.function.Predicate;

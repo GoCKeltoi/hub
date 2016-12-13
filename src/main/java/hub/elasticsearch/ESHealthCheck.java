@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.elasticsearch;
+package hub.elasticsearch;
 
 import static org.elasticsearch.action.admin.cluster.health.ClusterHealthStatus.YELLOW;
 

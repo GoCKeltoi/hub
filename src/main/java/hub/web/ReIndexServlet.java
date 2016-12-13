@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.web;
+package hub.web;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.codahale.metrics.MetricRegistry;
 
-import de.mobile.inventorylistindexer.indexer.FullIndexBuilder;
+import hub.indexer.FullIndexBuilder;
 
 
 public class ReIndexServlet extends HttpServlet {

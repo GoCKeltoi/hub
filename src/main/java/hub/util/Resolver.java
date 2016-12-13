@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util;
+package hub.util;
 
 import java.time.Duration;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util.http;
+package hub.util.http;
 
 import static com.codahale.metrics.MetricRegistry.name;
 import static java.util.Objects.requireNonNull;

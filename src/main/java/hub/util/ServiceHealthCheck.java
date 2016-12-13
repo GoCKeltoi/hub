@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util;
+package hub.util;
 
 import com.codahale.metrics.health.HealthCheck;
 

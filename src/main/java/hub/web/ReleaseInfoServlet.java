@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.web;
+package hub.web;
 
 import java.io.IOException;
 import java.io.InputStream;

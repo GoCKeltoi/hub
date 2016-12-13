@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.monitoring;
+package hub.monitoring;
 
 import java.util.Set;
 
@@ -11,8 +11,8 @@ import com.codahale.metrics.servlets.HealthCheckServlet;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.Route;
-import de.mobile.inventorylistindexer.util.NamedHealthCheck;
+import hub.Route;
+import hub.util.NamedHealthCheck;
 
 @Module
 public class HealthModule {

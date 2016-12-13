@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util;
+package hub.util;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;

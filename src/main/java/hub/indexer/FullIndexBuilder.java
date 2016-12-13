@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 public interface FullIndexBuilder {
 

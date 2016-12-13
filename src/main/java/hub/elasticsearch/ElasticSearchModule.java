@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.elasticsearch;
+package hub.elasticsearch;
 
 
 import javax.inject.Singleton;
@@ -16,8 +16,8 @@ import com.google.common.net.HostAndPort;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.config.Config;
-import de.mobile.inventorylistindexer.util.NamedHealthCheck;
+import hub.config.Config;
+import hub.util.NamedHealthCheck;
 
 
 @Module

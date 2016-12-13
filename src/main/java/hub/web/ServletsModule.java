@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.web;
+package hub.web;
 
 import javax.inject.Singleton;
 
@@ -9,8 +9,8 @@ import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.Route;
-import de.mobile.inventorylistindexer.indexer.FullIndexBuilder;
+import hub.Route;
+import hub.indexer.FullIndexBuilder;
 
 @Module
 public class ServletsModule {

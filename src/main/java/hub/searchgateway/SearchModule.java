@@ -1,4 +1,4 @@
-package de.mobile.inventorylistservice.searchgateway;
+package hub.searchgateway;
 
 import dagger.Module;
 import dagger.Provides;

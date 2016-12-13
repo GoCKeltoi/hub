@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 import java.time.Duration;
 
@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.MetricRegistry;
 
-import de.mobile.inventorylistindexer.config.Config;
-import de.mobile.inventorylistindexer.elasticsearch.EsAliasResolver;
-import de.mobile.inventorylistindexer.elasticsearch.EsAliasSamePredicate;
-import de.mobile.inventorylistindexer.kafka.KafkaTopicReader;
-import de.mobile.inventorylistindexer.kafka.TopicConnectionFactory;
-import de.mobile.inventorylistindexer.util.Resolver;
+import hub.config.Config;
+import hub.elasticsearch.EsAliasResolver;
+import hub.elasticsearch.EsAliasSamePredicate;
+import hub.kafka.KafkaTopicReader;
+import hub.kafka.TopicConnectionFactory;
+import hub.util.Resolver;
 
 public class ContinuousIndexer {
 

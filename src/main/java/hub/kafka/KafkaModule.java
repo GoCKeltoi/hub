@@ -1,11 +1,11 @@
-package de.mobile.inventorylistindexer.kafka;
+package hub.kafka;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-import de.mobile.inventorylistindexer.config.Config;
+import hub.config.Config;
 
 @Module
 public class KafkaModule {

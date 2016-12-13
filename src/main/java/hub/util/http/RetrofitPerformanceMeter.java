@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.util.http;
+package hub.util.http;
 
 /**
  * Retrofit profiler that reports the duration and count of requests grouped by HTTP status code

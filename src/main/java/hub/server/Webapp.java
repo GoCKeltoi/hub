@@ -1,7 +1,4 @@
-package de.mobile.inventorylistservice.server;
+package hub.server;
 
-/**
- * Created by tbirnbaum on 18.04.16.
- */
 public interface Webapp {
 }

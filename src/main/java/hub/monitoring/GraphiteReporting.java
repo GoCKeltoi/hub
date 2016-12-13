@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.monitoring;
+package hub.monitoring;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +11,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
 
-import de.mobile.inventorylistindexer.config.Config;
+import hub.config.Config;
 
 class GraphiteReporting {
 

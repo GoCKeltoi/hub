@@ -1,10 +1,6 @@
-package de.mobile.inventorylistservice.searchgateway;
+package hub.searchgateway;
 
-import de.mobile.inventorylistservice.elasticsearch.VehicleESDoc;
 import org.elasticsearch.common.collect.Lists;
-
-import java.util.List;
-
 
 public final class SearchResponse {
 

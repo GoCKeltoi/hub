@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer;
+package hub;
 
 
 import org.slf4j.Logger;
@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.health.HealthCheckRegistry;
 
-import de.mobile.inventorylistindexer.config.Config;
+import hub.config.Config;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer.indexer;
+package hub.indexer;
 
 import java.util.Collection;
 import java.util.List;

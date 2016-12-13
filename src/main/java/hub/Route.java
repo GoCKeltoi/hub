@@ -1,4 +1,4 @@
-package de.mobile.inventorylistindexer;
+package hub;
 
 import javax.servlet.Servlet;
 

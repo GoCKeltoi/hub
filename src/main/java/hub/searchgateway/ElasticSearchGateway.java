@@ -1,4 +1,4 @@
-package de.mobile.inventorylistservice.searchgateway;
+package hub.searchgateway;
 
 import static org.elasticsearch.index.query.FilterBuilders.andFilter;
 import static org.elasticsearch.index.query.FilterBuilders.regexpFilter;
