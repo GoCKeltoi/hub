@@ -5,7 +5,7 @@ import static com.google.common.base.Throwables.propagate;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
-import de.mobile.inventorylistindexer.App;
+import hub.App;
 
 class TomcatApp implements App {
 

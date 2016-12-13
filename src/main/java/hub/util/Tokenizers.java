@@ -1,4 +1,4 @@
-package hub.indexer;
+package hub.util;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +15,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Deprecated
 @SuppressFBWarnings
 @SuppressWarnings("PMD")
-class Tokenizers {
+public class Tokenizers {
 
     /**
      * Prepare text values using this tokenizer when you want to index

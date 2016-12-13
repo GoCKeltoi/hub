@@ -2,13 +2,16 @@ package hub.searchgateway;
 
 import org.elasticsearch.common.collect.Lists;
 
+import java.util.List;
+import java.util.Map;
+
 public final class SearchResponse {
 
-    private List<VehicleESDoc> vehicles = Lists.newArrayList();
+    private List<Map<String, Object>> vehicles = Lists.newArrayList();
     private Long totalHitsCount;
     private Long tookInMillis;
 
-    public List<VehicleESDoc> vehicles() {
+    public List<Map<String, Object>> vehicles() {
         return vehicles;
     }
 
@@ -24,7 +27,7 @@ public final class SearchResponse {
         return tookInMillis;
     }
 
-    public SearchResponse withVehicles(List<VehicleESDoc> vehicles) {
+    public SearchResponse withVehicles(List<Map<String, Object>> vehicles) {
         this.vehicles = vehicles;
         return this;
     }

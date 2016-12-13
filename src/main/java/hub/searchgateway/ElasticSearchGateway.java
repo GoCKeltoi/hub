@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import de.mobile.async.converter.ListenableActionCompletableFuture;
+import hub.util.ListenableActionCompletableFuture;
 
 import com.google.common.base.Joiner;
-import de.mobile.elastic.util.Tokenizers;
+import hub.util.Tokenizers;
 
 
 import org.elasticsearch.action.search.SearchRequestBuilder;

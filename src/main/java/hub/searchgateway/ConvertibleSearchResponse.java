@@ -1,9 +1,13 @@
 package hub.searchgateway;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.elasticsearch.search.SearchHit;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class ConvertibleSearchResponse {
@@ -28,7 +32,7 @@ public final class ConvertibleSearchResponse {
     }
 
     private void withVehicles() {
-        final List<VehicleESDoc> vehicles = Arrays.stream(eSResponse.getHits().getHits())
+        final List<Map<String, Object>> vehicles = Arrays.stream(eSResponse.getHits().getHits())
             .map(searchHit -> ConvertibleElasticSearchVehicle.from(searchHit).convert())
             .collect(Collectors.toList());
         searchResponse.withVehicles(vehicles);
@@ -55,8 +59,10 @@ public final class ConvertibleSearchResponse {
             return new ConvertibleElasticSearchVehicle(searchHit);
         }
 
-        public VehicleESDoc convert() {
-            return GSON.fromJson(searchHit.sourceAsString(), VehicleESDoc.class);
+        public Map<String,Object> convert() {
+
+            Type type = new TypeToken<Map<String, Object>>() {}.getType();
+            return GSON.fromJson(searchHit.sourceAsString(), type);
         }
     }
 }
