@@ -14,7 +14,7 @@ public class Main {
         configureLog4j();
         logStartupInfo();
 
-        final IndexerComponent app = DaggerIndexerComponent.create();
+        final HubComponent app = DaggerHubComponent.create();
 
         new Thread(() -> logHealthStatus(app.healthCheckRegistry())).start();
 

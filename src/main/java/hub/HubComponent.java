@@ -1,11 +1,7 @@
 package hub;
 
-import javax.inject.Singleton;
-
 import com.codahale.metrics.health.HealthCheckRegistry;
-
 import dagger.Component;
-
 import hub.elasticsearch.ElasticSearchModule;
 import hub.indexer.ContinuousIndexer;
 import hub.indexer.FullIndexBuilder;
@@ -15,6 +11,8 @@ import hub.monitoring.HealthModule;
 import hub.monitoring.MetricsModule;
 import hub.server.TomcatAppModule;
 import hub.web.ServletsModule;
+
+import javax.inject.Singleton;
 
 @Singleton
 @Component(
@@ -27,7 +25,7 @@ import hub.web.ServletsModule;
         ElasticSearchModule.class,
         KafkaModule.class
 })
-interface IndexerComponent {
+interface HubComponent {
     App webserver();
 
     HealthCheckRegistry healthCheckRegistry();

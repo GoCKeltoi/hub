@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.DatastoreImpl;
 import org.mongodb.morphia.Morphia;
@@ -13,7 +14,7 @@ import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 
 
-
+@SuppressFBWarnings
 public class DataStoreFactory {
 
     private String mongodbHosts;
