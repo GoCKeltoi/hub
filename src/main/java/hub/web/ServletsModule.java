@@ -30,6 +30,17 @@ public class ServletsModule {
         return new Route("/internal/reindex", new ReIndexServlet(reindexer, mr));
     }
 
+    @Provides(type = Provides.Type.SET)
+    Route hubRoute(HubServlet hubServlet) {
+        return new Route("/hub", hubServlet);
+    }
+
+    @Provides
+    @Singleton
+    HubServlet hubServlet(Gson gson) {
+        return new HubServlet(gson);
+    }
+
     @Provides
     @Singleton
     Gson provideGson() {
