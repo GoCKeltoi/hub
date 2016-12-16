@@ -14,9 +14,11 @@ import java.util.Map;
 public class HubServlet  extends HttpServlet {
     private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
     private final Gson gson;
+    private final HubService service;
 
-    public HubServlet(Gson gson) {
+    public HubServlet(Gson gson, HubService service) {
         this.gson = gson;
+        this.service = service;
     }
 
     @Override

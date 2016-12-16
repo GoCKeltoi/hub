@@ -11,6 +11,10 @@ import dagger.Provides;
 
 import hub.Route;
 import hub.indexer.FullIndexBuilder;
+import hub.mongodb.DataStoreFactory;
+import org.mongodb.morphia.Datastore;
+
+import java.net.UnknownHostException;
 
 @Module
 public class ServletsModule {
@@ -37,9 +41,22 @@ public class ServletsModule {
 
     @Provides
     @Singleton
-    HubServlet hubServlet(Gson gson) {
-        return new HubServlet(gson);
+    HubServlet hubServlet(Gson gson, HubService service) {
+        return new HubServlet(gson, service);
     }
+
+    @Provides
+    @Singleton
+    HubService hubService(Datastore datastore) {
+        return new HubService(new HubRepository(datastore));
+    }
+
+    @Provides
+    @Singleton
+    Datastore datastore() throws UnknownHostException {
+        return DataStoreFactory.createDealerCsDbDataStore();
+    }
+
 
     @Provides
     @Singleton
