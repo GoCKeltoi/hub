@@ -21,7 +21,7 @@ public class DataStoreFactory {
     public static Datastore createDealerCsDbDataStore() throws UnknownHostException {
         // parse list of hosts
         List<ServerAddress> mongoHosts = new ArrayList<ServerAddress>();
-        String mongodbHosts = Config.get("mongodbHosts", "");
+        String mongodbHosts = Config.get("mongodbHosts", "127.0.0.1");
         for (String url : mongodbHosts.split(":")) {
             ServerAddress serverAddress = new ServerAddress(url);
             mongoHosts.add(serverAddress);
@@ -29,7 +29,7 @@ public class DataStoreFactory {
 
         MongoClient mongo = new MongoClient(mongoHosts);
         mongo.setReadPreference(ReadPreference.secondaryPreferred());
-
+       // datastore.ensureIndexes(DetectorFraudProbability.class);
         // instantiate datastore
         Datastore datastore = new DatastoreImpl(new Morphia(), mongo, Config.get("mongodbName", "hub"));
 

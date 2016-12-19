@@ -53,8 +53,13 @@ public class ServletsModule {
 
     @Provides
     @Singleton
-    Datastore datastore() throws UnknownHostException {
-        return DataStoreFactory.createDealerCsDbDataStore();
+    Datastore datastore() {
+        try {
+            return DataStoreFactory.createDealerCsDbDataStore();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

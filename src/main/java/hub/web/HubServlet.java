@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class HubServlet  extends HttpServlet {
-    private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
+    //private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
     private final Gson gson;
     private final HubService service;
 
@@ -25,7 +25,8 @@ public class HubServlet  extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
-            Map<String, Object> r = gson.fromJson(req.getReader(), TYPE);
+            Event e = gson.fromJson(req.getReader(), Event.class);
+            service.save(e);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,8 @@ public class HubServlet  extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            Map<String, Object> r = gson.fromJson(req.getReader(), TYPE);
+            Event e = gson.fromJson(req.getReader(), Event.class);
+            service.save(e);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,21 +46,15 @@ public class HubServlet  extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            Map<String, Object> r = gson.fromJson(req.getReader(), TYPE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String id = req.getParameter("id");
+        service.find(id);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            Map<String, Object> r = gson.fromJson(req.getReader(), TYPE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String id = req.getParameter("id");
+        service.delete(id);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 }
