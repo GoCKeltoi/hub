@@ -20,15 +20,14 @@ public class Event {
 
     private Date creationTime;
 
-    private final Map<String, String> delegate = Maps.newHashMap();
-
-    private Map<String, String> values = Maps.newHashMap();
+    private Map<String, Object> values = Maps.newHashMap();
 
     private Event() {
         // used by morphia
     }
-    public Event(String application, String category, String event) {
+    public Event(Map<String, Object> values) {
         this.creationTime = new Date();
+        this.values = values;
     }
 
     public void addValue(String key, String value) {
@@ -46,8 +45,8 @@ public class Event {
         return creationTime;
     }
 
-    public Map<String, String> getValues() {
-        return null != values ? values : new HashMap<String, String>();
+    public Map<String, Object> getValues() {
+        return null != values ? values : new HashMap<String, Object>();
     }
 
     public void setId(ObjectId id) {
@@ -58,7 +57,7 @@ public class Event {
         this.creationTime = creationTime;
     }
 
-    public void setValues(Map<String, String> values) {
+    public void setValues(Map<String, Object> values) {
         this.values = values;
     }
 }

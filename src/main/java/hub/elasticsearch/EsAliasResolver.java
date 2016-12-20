@@ -18,7 +18,7 @@ public class EsAliasResolver implements Supplier<Optional<String>> {
 
     private static final Logger logger = LoggerFactory.getLogger(EsAliasResolver.class);
 
-    public static final String ES_INDEX_NAME = "inventory-list-vehicles-v2";
+    public static final String ES_INDEX_NAME = "hub";
 
     private final Client esclient;
 

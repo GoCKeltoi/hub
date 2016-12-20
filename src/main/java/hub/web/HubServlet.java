@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class HubServlet  extends HttpServlet {
-    //private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
+    private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
     private final Gson gson;
     private final HubService service;
 
@@ -25,8 +25,8 @@ public class HubServlet  extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
-            Event e = gson.fromJson(req.getReader(), Event.class);
-            service.save(e);
+            Map<String, Object> values = gson.fromJson(req.getReader(), TYPE);
+            service.save(new Event(values));
         } catch (IOException e) {
             e.printStackTrace();
         }

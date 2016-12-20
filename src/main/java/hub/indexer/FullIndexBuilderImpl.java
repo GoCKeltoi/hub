@@ -160,7 +160,7 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
 
             for (; ri.hasNext(); processedRecords++) {
                 final ConsumerRecord<String, String> record = (ConsumerRecord) ri.next();
-                if (!isDeleteEvent(record)) {
+
                     if(record.timestamp()>newestTimestamp){
                         newestTimestamp = record.timestamp();
                     }
@@ -175,7 +175,7 @@ class FullIndexBuilderImpl implements FullIndexBuilder {
                             logger.error("record.value() " + record.value());
                         }
                     }
-                }
+
             }
             // send request
             w.close();
