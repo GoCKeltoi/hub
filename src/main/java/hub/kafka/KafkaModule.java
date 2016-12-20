@@ -26,7 +26,8 @@ public class KafkaModule {
         props.put("acks", "all");
         props.put("retries", java.lang.Integer.valueOf(32));
         props.put("compression.type", "lz4");
-
+        props.put("auto.create.topics.enable", "true");
+//auto.create.topics.enable
         return new KafkaProducer(
                 props,
                 new org.apache.kafka.common.serialization.StringSerializer(),

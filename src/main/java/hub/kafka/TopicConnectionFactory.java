@@ -39,7 +39,7 @@ public class TopicConnectionFactory {
         props.put("value.deserializer", StringDeserializer.class.getName());
         props.put("enable.auto.commit", "false");
         props.put("auto.offset.reset", autoOffsetReset);
-
+        props.put("auto.create.topics.enable", "true");
         KafkaConsumer client = new KafkaConsumer<>(props);
         client.subscribe(Collections.singletonList("mobile-ad-log"));
 
