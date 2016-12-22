@@ -2,6 +2,8 @@ package hub.web;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,9 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class HubServlet  extends HttpServlet {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HubServlet.class);
+
     private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
     private final Gson gson;
     private final HubService service;
@@ -23,10 +28,14 @@ public class HubServlet  extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-
+        //resp.setStatus(HttpServletResponse.SC_OK);
+        resp.setContentType("application/json");
         try {
             Map<String, Object> values = gson.fromJson(req.getReader(), TYPE);
-            service.save(new Event(values));
+            Event e = new Event(values);
+            service.save(e);
+            LOGGER.info("" + e);
+            gson.toJson(e, resp.getWriter());
         } catch (IOException e) {
             e.printStackTrace();
         }

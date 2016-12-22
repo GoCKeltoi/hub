@@ -60,4 +60,13 @@ public class Event {
     public void setValues(Map<String, Object> values) {
         this.values = values;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", creationTime=" + creationTime +
+                ", values=" + values +
+                '}';
+    }
 }

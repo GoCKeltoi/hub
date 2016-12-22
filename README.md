@@ -9,6 +9,7 @@
 * [Kibana](https://kibana4.corp.mobile.de/#/discover/inventory-list-indexer)
 
 # Development
+ curl -H 'Content-Type: application/json' -X PUT -d '{"tags":["tag1","tag2"],"question":"Which band?","answers":[{"id":"a0","answer":"Answer1"},{"id":"a1","answer":"answer2"}]}' http://127.0.0.1:8080/hub
 
 ```bash
 # start docker containers
