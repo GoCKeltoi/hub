@@ -20,14 +20,17 @@ public class Event {
 
     private Date creationTime;
 
+    private String  customerId;
+
     private Map<String, Object> values = Maps.newHashMap();
 
     private Event() {
         // used by morphia
     }
-    public Event(Map<String, Object> values) {
+    public Event(String  customerId, Map<String, Object> values) {
         this.creationTime = new Date();
         this.values = values;
+        this.customerId = customerId;
     }
 
     public void addValue(String key, String value) {

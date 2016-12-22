@@ -47,8 +47,14 @@ public class ServletsModule {
 
     @Provides
     @Singleton
-    HubService hubService(Datastore datastore) {
-        return new HubService(new HubRepository(datastore));
+    HubService hubService(HubRepository hubRepository) {
+        return new HubService(hubRepository);
+    }
+
+    @Provides
+    @Singleton
+    HubRepository hubRepository(Datastore datastore) {
+        return new HubRepository(datastore);
     }
 
     @Provides

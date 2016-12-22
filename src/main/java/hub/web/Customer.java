@@ -20,6 +20,8 @@ public class Customer {
 
     private String password;
 
+    private boolean active;
+
     private Customer() {
         // used by morphia
     }
@@ -27,9 +29,14 @@ public class Customer {
     public Customer(String login, String password) {
         this.login = login;
         this.password = password;
+        this.active = true;
     }
 
     public boolean matches(String login, String password){
         return this.login.equals(login) && this.password.equals(password);
+    }
+
+    public String getId(){
+        return id.toString();
     }
 }

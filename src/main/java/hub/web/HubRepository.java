@@ -32,6 +32,13 @@ public class HubRepository {
         return datastore.createQuery(Event.class).field("_id").equal(objectId).get();
     }
 
+    public Customer findCustomer(String login, String password) {
+        return datastore.createQuery(Customer.class).field("login").equal(password).field("password").equal(login).get();
+    }
+
+    public void saveCustomer(Customer c){
+        datastore.save(c);
+    }
   //  public List<CsProcessingHistoryEntry> findLastEntries(String userName, int limit) {
     //    return fsboCsDbDataStore.createQuery(CsProcessingHistoryEntry.class)
       //          .field(CsProcessingHistoryEntry.PROP_EMPLOYEE).equal(userName)

@@ -2,6 +2,7 @@ package hub.web;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,26 +21,35 @@ public class HubServlet  extends HttpServlet {
     private static final Type TYPE = new TypeToken<Map<String, Object>>(){}.getType();
     private final Gson gson;
     private final HubService service;
+    private final JwtResolver jwtResolver;
 
     public HubServlet(Gson gson, HubService service) {
         this.gson = gson;
         this.service = service;
+        this.jwtResolver = new JwtResolver();
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         //resp.setStatus(HttpServletResponse.SC_OK);
-        resp.setContentType("application/json");
-        try {
-            Map<String, Object> values = gson.fromJson(req.getReader(), TYPE);
-            Event e = new Event(values);
-            service.save(e);
-            LOGGER.info("" + e);
-            gson.toJson(e, resp.getWriter());
-        } catch (IOException e) {
-            e.printStackTrace();
+        Claims claims = jwtResolver.jwsClaims(req);
+        if(null != claims){
+            String customerId = claims.get("custid", String.class);
+            resp.setContentType("application/json");
+            try {
+                Map<String, Object> values = gson.fromJson(req.getReader(), TYPE);
+                Event e = new Event(customerId, values);
+                service.save(e);
+                LOGGER.info("" + e);
+                gson.toJson(e, resp.getWriter());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
-        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+
     }
 
     @Override
