@@ -19,7 +19,7 @@ public class HubService {
     }
 
 
-    public void find(String id) {
-        repository.find(new ObjectId(id));
+    public Event find(String id) {
+        return repository.find(new ObjectId(id));
     }
 }

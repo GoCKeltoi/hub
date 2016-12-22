@@ -56,7 +56,7 @@ public class HubServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        service.find(id);
+        gson.toJson(service.find(id), resp.getWriter());
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
